@@ -1,5 +1,6 @@
 package manager;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,7 +42,9 @@ public class HelperBase {
     }
 
     public  void attachFoto(String link){
-       wd.findElement(By.id("")).sendKeys("");
+       wd.findElement(By.id("photos")).sendKeys(link);
+
     }
+
 
 }
