@@ -33,7 +33,7 @@ public class CreateNewCarTest extends TestBase {
                 .withPrice("350")
                 .withDistanceIncluded("500")
                 ;
-
+//logger.info("")
         app.car().opencarCreationForm();
 
         app.car().fillCarForm(car);
@@ -43,6 +43,7 @@ public class CreateNewCarTest extends TestBase {
         app.car().saveNewCar();
         //app.car().pause(2000);
         Assert.assertTrue(app.car().isCarAdded());
+        //logger.info("test passed");
     }
 
     @AfterMethod
