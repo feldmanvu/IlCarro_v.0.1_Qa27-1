@@ -22,14 +22,10 @@ public class LoginTest extends TestBase {
         app.user().clickLoginButton();
         app.user().pause(2000);
         app.user().successLogin();
-        app.user().pause(2000);
+        app.user().pause(4000);
         Assert.assertTrue(app.user().islogged());
         logger.info("Test passed");
 
     }
 
-    @AfterMethod
-    public void postConditions() {
-        app.user().logout();
-    }
 }

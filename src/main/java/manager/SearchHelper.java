@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
 
@@ -19,7 +21,8 @@ public class SearchHelper extends HelperBase{
 
     public void fillSearchFormByType(String city, String dateFrom, String dataTo) {
         fillInputCity(city);
-        typeInputPeriod(dateFrom,dataTo);
+        //typeInputPeriod(dateFrom,dataTo);
+        typeWithCntrV(dateFrom,dataTo);
     }
 
     private void typeInputPeriod(String dateFrom, String dataTo) {
@@ -28,10 +31,12 @@ public class SearchHelper extends HelperBase{
 
     }
 
+
     private void fillInputCity(String city) {
         type(By.id("city"),city);
-        pause(500);
+        pause(2000);
         click(By.cssSelector("div.pac-item"));
+        pause(2000);
 
     }
 
@@ -45,14 +50,17 @@ public class SearchHelper extends HelperBase{
 
     public void fillSearchFormBySelectDate(String city, String dateFrom, String dateTo) {
         fillInputCity(city);
-        selectPeriodCurrentMounth(dateFrom,dateTo);
+        selectPeriodCurrentMonth(dateFrom,dateTo);
     }
-//    "5/15/2021"   "5/25/2021"
-    private void selectPeriodCurrentMounth(String dateFrom, String dateTo) {
+//    "5/20/2021"   "5/25/2021"
+    private void selectPeriodCurrentMonth(String dateFrom, String dateTo) {
+
         wd.findElement(By.id("dates")).click();
+
         String[]from =dateFrom.split("/");
         String[]to = dateTo.split("/");
         //String locator ="//div[text()='"+from[1]+"']";
+
         String locator =String.format("//div[text()=' %s ']",from[1]);
         click(By.xpath(locator));
         String locator2 =String.format("//div[text()=' %s ']",to[1]);
@@ -67,8 +75,10 @@ public class SearchHelper extends HelperBase{
 
     private void typeInputPeriodNeg(String from, String to) {
         type(By.id("dates"),from + " - " +to);
+
+        wd.findElement(By.cssSelector(".cdk-overlay-backdrop")).click();
         //wd.findElement(By.id("dates")).sendKeys(Keys.ENTER);
-        //click(By.id("dates"));
+
     }
 
     public boolean buttonYallaInactive() {
@@ -77,38 +87,73 @@ public class SearchHelper extends HelperBase{
     }
 
     public boolean isDataInPath() {
-       // String text= wd.findElement(By.xpath("//div[@class='ng-star-inserted']")).getText();
-        //return isElementPresent(By.xpath("//div[text()=\" You can't pick date before today \"]"));
-        return isElementPresent(By.xpath("//div[@class='ng-star-inserted']"));
+        String text= wd.findElement(By.xpath("//div[@class='ng-star-inserted']")).getText();
+        return text.contains("You can't pick date before today");
+
+        //return isElementPresent(By.xpath("//div[@class='ng-star-inserted']"));
     }
 
     public void fillserchfom(String city, String from, String to) {
         fillInputCity(city);
         typeInputPeriodCheckData(from,to);
     }
-// "6/1/2021","6/12/2021"
+// "6/1/2021","7/2/2021"
     private void typeInputPeriodCheckData(String from, String to) {
 
         String[] dataFrom =from.split("/");
         String []dataTo = to.split("/");
+
         click(By.id("dates"));
+
         int diffStart=0;
 
         if(LocalDate.now().getMonthValue()!=Integer.parseInt(dataFrom[0])){
             diffStart=Integer.parseInt(dataFrom[0])-LocalDate.now().getMonthValue();
         }
+        System.out.println("Month diffStart: " + diffStart);
+
         for (int i = 0; i < diffStart; i++) {
             click(By.xpath("//button[@aria-label='Next month']"));
         }
         String locator =String.format("//div[text()=' %s ']",dataFrom[1]);
         click(By.xpath(locator));
 
+int diff=0;
+if(Integer.parseInt(dataTo[0])!=Integer.parseInt(dataFrom[0])){
+    diff = Integer.parseInt(dataTo[0]) - Integer.parseInt(dataFrom[0]);
+
+}
+        for (int i = 0; i < diff; i++) {
+            click(By.xpath("//button[@aria-label='Next month']"));
+        }
 
 
-
-
-
-        String locator2 =String.format("//div[text()=' %s ']",dataTo[1]);
+       String locator2 =String.format("//div[text()=' %s ']",dataTo[1]);
         click(By.xpath(locator2));
+    }
+
+
+
+    public void backToHomePage() {
+        wd.findElement(By.xpath("//a[@href='/']")).click();
+        new WebDriverWait(wd,10)
+                .until(ExpectedConditions.visibilityOf(wd.findElement(By.xpath("//div[@class='search-container']"))));
+    }
+
+    public void fillSearchForm(String city, String from, String to) {
+        type(By.id("city"),city);
+        pause(5000);
+        wd.findElement(By.cssSelector("div.pac-item")).click();
+        pause(2000);
+        String [] dataF= from.split("/");
+        String [] dataT = to.split("/");
+        click(By.id("dates"));
+
+        String dataLocatorFrom=String.format("//div[text()=' %s ']",dataF[1]);
+        click(By.xpath(dataLocatorFrom));
+
+        String dataLocatorTo=String.format("//div[text()=' %s ']",dataT[1]);
+
+        click(By.xpath(dataLocatorTo));
     }
 }

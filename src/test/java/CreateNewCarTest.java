@@ -16,7 +16,7 @@ public class CreateNewCarTest extends TestBase {
 
     @Test
     public void createNewCar() {
-
+app.car().pause(2000);
         Car car = new Car().withLocation("Tel-Aviv")
                 .withMake("Subaru")
                 .withModel("Forester")
@@ -29,10 +29,11 @@ public class CreateNewCarTest extends TestBase {
                 .withSeats("5")
                 .withCarClass("Luxury")
                 .withFuelConsumption("10")
-                .withCarRegNum("70011432")
+                .withCarRegNum("11111432")
                 .withPrice("350")
                 .withDistanceIncluded("500");
         logger.info("Create new card with Registered number: " + car.getCarRegNum());
+
         app.car().opencarCreationForm();
 
         app.car().fillCarForm(car);
@@ -40,13 +41,13 @@ public class CreateNewCarTest extends TestBase {
         app.car().attachFoto("/Users/tayahatum/QA27/IlCarro_v.0.1_Qa27/bmw.jpeg");
         app.car().pause(2000);
         app.car().saveNewCar();
-        //app.car().pause(2000);
+       app.car().pause(2000);
         Assert.assertTrue(app.car().isCarAdded());
         logger.info("Test passed and car with number--> " +car.getCarRegNum() +" was added");
     }
 
     @AfterMethod
     public void postConditions() {
-
+ app.car().searchAnothercar();
     }
 }
