@@ -2,13 +2,11 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-public class SearchTest extends TestBase{
-
-
+public class SearchTmp extends TestBase{
     @Test
     public void typeSearchPeriod(){
         //      "5/15/2021 - 5/20/2021"
-        app.search().fillSearchFormByType ("Haifa","5/25/2021","5/30/2021");
+        app.search().fillSearchFormByTypeVersioWrong ("Haifa","5/25/2021","5/30/2021");
         app.search().pause(2000);
         app.search().clickYallaBtn();
         Assert.assertTrue(app.search().isListOfCarsAppeared());
@@ -29,10 +27,10 @@ public class SearchTest extends TestBase{
 
     @Test
     public void negativeTestTypePeriodInPath(){
-       //  4/10/2021 - 4/12/2021
+        //  4/10/2021 - 4/12/2021
         app.search().fillSearchFormByTypeNeg("Haifa","4/10/2021","4/12/2021");
         Assert.assertTrue(app.search().buttonYallaInactive());
-       Assert.assertTrue(app.search().isDataInPath());
+        Assert.assertTrue(app.search().isDataInPath());
         app.search().pause(1000);
     }
 

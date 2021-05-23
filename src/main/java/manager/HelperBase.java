@@ -26,10 +26,12 @@ public class HelperBase {
             el.sendKeys(text);
         }
     }
-
-    public void typeWithCntrV(String from, String to){
+//By.id("dates")
+    public void typeWithCntrV( String from, String to){
         WebElement element = wd.findElement(By.id("dates"));
+
         element.click();
+
         String os = System.getProperty("os.name");
         System.out.println(os);
         if (os.startsWith("Mac")){
