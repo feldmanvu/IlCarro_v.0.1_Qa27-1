@@ -58,4 +58,8 @@ public class CarHelper extends HelperBase{
     public void searchAnothercar() {
         wd.findElement(By.xpath("//button[text()='Search cars']")).click();
     }
+
+    public void refresh() {
+        wd.navigate().refresh();
+    }
 }
