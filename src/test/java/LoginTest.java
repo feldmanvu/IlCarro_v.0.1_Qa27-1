@@ -92,7 +92,7 @@ public Iterator<Object[]> dataFile() throws IOException {
     }
 
 
-    @Test
+    @Test(invocationCount = 2)
     public void loginTest() {
 
         app.user().openLoginForm();
