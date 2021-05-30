@@ -25,7 +25,7 @@ public class CreateNewCarTest extends TestBase {
 
         app.car().fillCarForm(car);
 
-        app.car().attachFoto("/Users/tayahatum/QA27/IlCarro_v.0.1_Qa27/bmw.jpeg");
+        app.car().attachFoto("C://QA27//IlCarro_v.0.1_Qa27//bmw.jpeg");
         app.car().pause(2000);
         app.car().saveNewCar();
        app.car().pause(2000);
@@ -57,7 +57,7 @@ public class CreateNewCarTest extends TestBase {
 
         app.car().fillCarForm(car);
 
-        app.car().attachFoto("/Users/tayahatum/QA27/IlCarro_v.0.1_Qa27/bmw.jpeg");
+        app.car().attachFoto("C://QA27//IlCarro_v.0.1_Qa27//bmw.jpeg");
         app.car().pause(2000);
         app.car().saveNewCar();
         app.car().pause(2000);
