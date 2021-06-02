@@ -1,5 +1,6 @@
 import manager.DataProviders;
 import models.Car;
+import models.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -10,7 +11,7 @@ public class CreateNewCarTest extends TestBase {
     @BeforeMethod
     public void precondition() {
         if (!app.user().islogged()) {
-            app.user().loggin();
+            app.user().loggin(new User().withEmail(app.setEmail()).withPassword(app.setPassword()));
         }
 
     }
@@ -31,6 +32,7 @@ public class CreateNewCarTest extends TestBase {
        app.car().pause(2000);
         Assert.assertTrue(app.car().isCarAdded());
         logger.info("Test passed and car with number--> " +car.getCarRegNum() +" was added");
+        app.car().refresh();
     }
 
     @Test
@@ -48,7 +50,7 @@ public class CreateNewCarTest extends TestBase {
                 .withSeats("5")
                 .withCarClass("Luxury")
                 .withFuelConsumption("10")
-                .withCarRegNum("11111439")
+                .withCarRegNum("12211004")
                 .withPrice("350")
                 .withDistanceIncluded("500");
         logger.info("Create new card with Registered number: " + car.getCarRegNum());
@@ -63,7 +65,7 @@ public class CreateNewCarTest extends TestBase {
         app.car().pause(2000);
         Assert.assertTrue(app.car().isCarAdded());
         logger.info("Test passed and car with number--> " + car.getCarRegNum() + " was added");
-        app.car().refresh();
+
     }
     @AfterMethod
     public void postConditions() {

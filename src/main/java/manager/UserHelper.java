@@ -19,7 +19,7 @@ public class UserHelper extends HelperBase{
     }
 
     public void clickLoginButton() {
-        //click(By.xpath("//button[text()='Y’alla!']"));
+        //click(By.xpath("//button[text()='Yalla!']"));
         click(By.xpath("//button[@type='submit']"));
     }
 
@@ -33,9 +33,9 @@ public class UserHelper extends HelperBase{
     public void logout() {
         click(By.xpath("//a[text()=' Logout ']"));
     }
-    public void loggin(){
+    public void loggin(User user){
         openLoginForm();
-        fillLoginForm(new User().withEmail("marsh@gmail.com").withPassword("Marsh1234$"));
+        fillLoginForm(user);
         clickLoginButton();
         pause(2000);
         successLogin();
